@@ -9,11 +9,15 @@
 
     public interface ICrispyStore
     {
-        DbSet<CrispyProject> Projects { get; set; }
-        DbSet<CrispyEnvironment> Enviroments { get; set; }
+        DbSet<CrispyApplication> Applications { get; set; }
+        DbSet<CrispyEnvironment> Environments { get; set; }
         DbSet<CrispyKeyValuePair> KeyValuePairs { get; set; }
         DbSet<CrispyKeyValuePairHistory> KeyValuePairHistories { get; set; }
 
+        int SaveChanges();
+        int SaveChanges(bool acceptAllChangesOnSuccess);
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken));
+        Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default(CancellationToken));
+        
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace Crispy.Apis.Controllers
+﻿namespace Crispy.AdminApi.Controllers
 {
     using Crispy.Abstractions;
     using JetBrains.Annotations;
@@ -8,43 +8,43 @@
     using System.Text;
     using System.Threading.Tasks;
 
-    [Route("project")]
-    public class CrispyProjectController : Controller
+    [Route("application")]
+    public class CrispyApplicationController : Controller
     {
-        public CrispyProjectController(ICrispyProjectService projectService)
+        public CrispyApplicationController(ICrispyApplicationService applicationService)
         {
-            ProjectService = projectService;
+            ApplicationService = applicationService;
         }
-        protected ICrispyProjectService ProjectService { get; set; }
+        protected ICrispyApplicationService ApplicationService { get; set; }
 
         [HttpGet("page")]
         public async Task<IActionResult> PageAsync([NotNull, FromQuery]CryspyPageContext context) =>
-            Ok(await ProjectService.PageAsync(context));
+            Ok(await ApplicationService.PageAsync(context));
 
         [HttpPost]
-        public async Task<IActionResult> CreateAsync([NotNull, FromBody]CrispyProjectCreationContext context)
+        public async Task<IActionResult> CreateAsync([NotNull, FromBody]CrispyApplicationCreationContext context)
         {
-            await ProjectService.CreateAsync(context);
+            await ApplicationService.CreateAsync(context);
 
             return Ok();
         }
 
         [HttpPatch]
-        public async Task<IActionResult> UpdateAsync([NotNull, FromBody]CrispyProjectUpdateContext context)
+        public async Task<IActionResult> UpdateAsync([NotNull, FromBody]CrispyApplicationUpdateContext context)
         {
-            await ProjectService.UpdateAsync(context);
+            await ApplicationService.UpdateAsync(context);
 
             return Ok();
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetInfoAsync([NotNull, FromRoute]Guid id) =>
-            Ok(await ProjectService.GetInfoAsync(id));
+            Ok(await ApplicationService.GetInfoAsync(id));
 
         [HttpPatch("{id}/includeglobalconfig/{include}")]
         public async Task<IActionResult> IncludeGlobalConfigAsync([NotNull, FromRoute]Guid id, [NotNull, FromRoute]bool include)
         {
-            await ProjectService.IncludeGlobalConfigAsync(id, include);
+            await ApplicationService.IncludeGlobalConfigAsync(id, include);
 
             return Ok();
         }
@@ -52,7 +52,7 @@
         [HttpPatch("{id}/encryption/{encryption}")]
         public async Task<IActionResult> EncryptAsync(Guid id, bool encryption)
         {
-            await ProjectService.EncryptAsync(id, encryption);
+            await ApplicationService.EncryptAsync(id, encryption);
 
             return Ok();
         }
@@ -60,7 +60,7 @@
         [HttpPatch("{id}/enabler/{enabler}")]
         public async Task<IActionResult> EnableAsync([NotNull, FromRoute]Guid id, [NotNull, FromRoute]bool enabler)
         {
-            await ProjectService.EnableAsync(id, enabler);
+            await ApplicationService.EnableAsync(id, enabler);
 
             return Ok();
         }
@@ -68,7 +68,7 @@
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsync([NotNull, FromRoute]Guid id)
         {
-            await ProjectService.DeleteAsync(id);
+            await ApplicationService.DeleteAsync(id);
 
             return Ok();
         }

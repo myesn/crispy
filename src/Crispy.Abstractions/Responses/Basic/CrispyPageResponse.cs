@@ -6,7 +6,7 @@
 
     public class CrispyPageResponse<T> where T : class, new()
     {
-        public T Data { get; set; }
+        public IEnumerable<T> Data { get; set; } = new List<T>();
         public int Total { get; set; }
         public int PageIndex { get; set; }
         public int PageSize { get; set; }

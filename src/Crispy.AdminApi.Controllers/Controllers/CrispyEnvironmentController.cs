@@ -1,4 +1,4 @@
-﻿namespace Crispy.Apis.Controllers
+﻿namespace Crispy.AdminApi.Controllers
 {
     using Crispy.Abstractions;
     using JetBrains.Annotations;
@@ -8,10 +8,10 @@
     using System.Text;
     using System.Threading.Tasks;
 
-    [Route("enviroment")]
-    public class CrispyEnviromentController : Controller
+    [Route("environment")]
+    public class CrispyEnvironmentController : Controller
     {
-        public CrispyEnviromentController(ICrispyEnviromentService enviromentService)
+        public CrispyEnvironmentController(ICrispyEnviromentService enviromentService)
         {
             EnviromentService = enviromentService;
         }
@@ -22,7 +22,7 @@
             Ok(await EnviromentService.GetInfoAsync(id));
 
         [HttpPost]
-        public async Task<IActionResult> AddAsync([NotNull,FromBody]CrispyEnviromentAddtionContext context)
+        public async Task<IActionResult> AddAsync([NotNull,FromBody]CrispyEnvironmentAddtionContext context)
         {
             await EnviromentService.AddAsync(context);
 
@@ -30,7 +30,7 @@
         }
 
         [HttpPatch]
-        public async Task<IActionResult> UpdateAsync([NotNull, FromBody]CrispyEnviromentUpdateContext context)
+        public async Task<IActionResult> UpdateAsync([NotNull, FromBody]CrispyEnvironmentUpdateContext context)
         {
             await EnviromentService.UpdateAsync(context);
 

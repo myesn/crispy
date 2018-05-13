@@ -8,7 +8,7 @@
     {
         public Guid Id { get; set; }
         public string Key { get; set; }
-        public dynamic Value { get; set; }
+        public string Value { get; set; }
         public string Description { get; set; }
         public CrispyKeyValueValueType ValueType { get; set; }
         public bool Enabled { get; set; }

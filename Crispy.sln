@@ -15,15 +15,24 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crispy.AdminApi.Host", "src
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crispy.Api.Host", "src\Crispy.Api.Host\Crispy.Api.Host.csproj", "{DBDE6188-36D2-4D21-9E1B-1586AB55FD08}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crispy.EntityFramework.MySQL", "src\Crispy.EntityFramework.MySQL\Crispy.EntityFramework.MySQL.csproj", "{47C39BE8-7467-4685-AF3E-EAB427CAA350}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crispy.EntityFramework.MySQL", "src\Crispy.EntityFramework.MySQL\Crispy.EntityFramework.MySQL.csproj", "{47C39BE8-7467-4685-AF3E-EAB427CAA350}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crispy.EntityFramework", "src\Crispy.EntityFramework\Crispy.EntityFramework.csproj", "{0D50271F-1C4A-4721-AE22-4FC0D2BDB38C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crispy.EntityFramework", "src\Crispy.EntityFramework\Crispy.EntityFramework.csproj", "{0D50271F-1C4A-4721-AE22-4FC0D2BDB38C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ef", "ef", "{D3F53121-9627-4C83-A874-BAD8585CDD87}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ef.providers", "ef.providers", "{D3F53121-9627-4C83-A874-BAD8585CDD87}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "host", "host", "{FCCC2B7D-2DD2-4C6D-B186-4F47CBA9EB5B}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "hosts", "hosts", "{FCCC2B7D-2DD2-4C6D-B186-4F47CBA9EB5B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crispy.Apis", "src\Crispy.Apis\Crispy.Apis.csproj", "{C761DC07-2B40-4DAE-ACB5-C77B1817D60C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crispy.Api.Controllers", "src\Crispy.Api.Controllers\Crispy.Api.Controllers.csproj", "{006C1B96-2FB1-4539-92ED-3920347786B3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crispy.AdminApi.Controllers", "src\Crispy.AdminApi.Controllers\Crispy.AdminApi.Controllers.csproj", "{5E9B170A-E17F-4CA3-9327-C0EFC859D051}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{048BA83D-D9E9-426A-A538-6E2A50DF8BB9}"
+	ProjectSection(SolutionItems) = preProject
+		dropdb.bat = dropdb.bat
+		migrations.bat = migrations.bat
+		updatedb.bat = updatedb.bat
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,10 +68,14 @@ Global
 		{0D50271F-1C4A-4721-AE22-4FC0D2BDB38C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0D50271F-1C4A-4721-AE22-4FC0D2BDB38C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0D50271F-1C4A-4721-AE22-4FC0D2BDB38C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C761DC07-2B40-4DAE-ACB5-C77B1817D60C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C761DC07-2B40-4DAE-ACB5-C77B1817D60C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C761DC07-2B40-4DAE-ACB5-C77B1817D60C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C761DC07-2B40-4DAE-ACB5-C77B1817D60C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{006C1B96-2FB1-4539-92ED-3920347786B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{006C1B96-2FB1-4539-92ED-3920347786B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{006C1B96-2FB1-4539-92ED-3920347786B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{006C1B96-2FB1-4539-92ED-3920347786B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E9B170A-E17F-4CA3-9327-C0EFC859D051}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E9B170A-E17F-4CA3-9327-C0EFC859D051}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E9B170A-E17F-4CA3-9327-C0EFC859D051}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E9B170A-E17F-4CA3-9327-C0EFC859D051}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -77,7 +90,8 @@ Global
 		{0D50271F-1C4A-4721-AE22-4FC0D2BDB38C} = {D3F53121-9627-4C83-A874-BAD8585CDD87}
 		{D3F53121-9627-4C83-A874-BAD8585CDD87} = {FD985B8A-4693-4624-ABFD-3A785326F68A}
 		{FCCC2B7D-2DD2-4C6D-B186-4F47CBA9EB5B} = {FD985B8A-4693-4624-ABFD-3A785326F68A}
-		{C761DC07-2B40-4DAE-ACB5-C77B1817D60C} = {FD985B8A-4693-4624-ABFD-3A785326F68A}
+		{006C1B96-2FB1-4539-92ED-3920347786B3} = {FD985B8A-4693-4624-ABFD-3A785326F68A}
+		{5E9B170A-E17F-4CA3-9327-C0EFC859D051} = {FD985B8A-4693-4624-ABFD-3A785326F68A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {53EF6E40-6D83-41F4-8C0F-A26465DE12A7}

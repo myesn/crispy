@@ -9,12 +9,11 @@
 
     public interface ICrispyKeyValuePairService
     {
-        IQueryable<CrispyKeyValuePair> Query();
-        Task<IEnumerable<CrispyKeyValuePairResponse>> GetAllAsync([NotNull]Guid enviromentId);
+        Task<IEnumerable<CrispyKeyValuePairResponse>> GetAllAsync([NotNull]Guid? environmentId);
+        Task<IEnumerable<CrispyKeyValuePairHistoryResponse>> GetHistoiesAsync([NotNull]Guid id);
         Task<CrispyKeyValuePair> AddAsync([NotNull]CrispyKeyValuePairAddtionContext context);
         Task<CrispyKeyValuePair> UpdateAsync([NotNull]CrispyKeyValuePairUpdateContext context);
-        Task EnableAsync([NotNull]Guid id, [NotNull] bool enabler);
+        Task EnableAsync([NotNull]Guid id, bool enabler);
         Task DeleteAsync([NotNull]Guid id);
-        Task<IEnumerable<CrispyKeyValuePairResponse>> GetHistoiesAsync([NotNull]Guid id);
     }
 }

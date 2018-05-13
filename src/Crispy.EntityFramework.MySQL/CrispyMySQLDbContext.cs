@@ -8,9 +8,15 @@
     using System.Text;
     using JetBrains.Annotations;
 
+
     public class CrispyMySQLDbContext : CrispyDbContext
     {
         public CrispyMySQLDbContext([NotNull]DbContextOptions<CrispyMySQLDbContext> options) : base(options)
-        { }
+        {
+
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder) =>
+            modelBuilder.ConfigureTableName();
     }
 }
