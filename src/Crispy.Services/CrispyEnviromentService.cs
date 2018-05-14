@@ -33,7 +33,7 @@
         public async Task DeleteAsync([NotNull] Guid id)
         {
             var environment = await FindAsync(id);
-            if (environment == null)
+            if (environment == null || environment.Deleted)
                 return;
 
             environment.Enabler = false;

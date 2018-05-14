@@ -42,7 +42,7 @@
             Ok(await ApplicationService.GetInfoAsync(id));
 
         [HttpPatch("{id}/includeglobalconfig/{include}")]
-        public async Task<IActionResult> IncludeGlobalConfigAsync([NotNull, FromRoute]Guid id, [NotNull, FromRoute]bool include)
+        public async Task<IActionResult> IncludeGlobalConfigAsync([NotNull, FromRoute]Guid id, [FromRoute]bool include)
         {
             await ApplicationService.IncludeGlobalConfigAsync(id, include);
 
@@ -50,7 +50,7 @@
         }
 
         [HttpPatch("{id}/encryption/{encryption}")]
-        public async Task<IActionResult> EncryptAsync(Guid id, bool encryption)
+        public async Task<IActionResult> EncryptAsync([NotNull,FromRoute]Guid id, [FromRoute]bool encryption)
         {
             await ApplicationService.EncryptAsync(id, encryption);
 
@@ -58,7 +58,7 @@
         }
 
         [HttpPatch("{id}/enabler/{enabler}")]
-        public async Task<IActionResult> EnableAsync([NotNull, FromRoute]Guid id, [NotNull, FromRoute]bool enabler)
+        public async Task<IActionResult> EnableAsync([NotNull, FromRoute]Guid id, [FromRoute]bool enabler)
         {
             await ApplicationService.EnableAsync(id, enabler);
 

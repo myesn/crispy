@@ -14,6 +14,13 @@
                 public const int NameMaxLength = 50;
             }
 
+            public static class Variable
+            {
+                public const string TableName = "Variables";
+                public const int KeyMaxLength = 50;
+                public const int ValueMaxLength = 1280;//256 * 5
+            }
+
             public static class Environment
             {
                 public const string TableName = "Environments";

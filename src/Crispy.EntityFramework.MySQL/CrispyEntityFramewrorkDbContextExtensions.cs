@@ -12,6 +12,7 @@
         public static ModelBuilder ConfigureTableName(this ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<CrispyApplication>().ToTable(ModelRules.Application.TableName);
+            modelBuilder.Entity<CrispyVariable>().ToTable(ModelRules.Variable.TableName);
             modelBuilder.Entity<CrispyEnvironment>().ToTable(ModelRules.Environment.TableName);
             modelBuilder.Entity<CrispyKeyValuePair>().ToTable(ModelRules.KeyValuePair.TableName);
             modelBuilder.Entity<CrispyKeyValuePairHistory>().ToTable(ModelRules.KeyValuePairHistory.TableName);

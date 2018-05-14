@@ -10,6 +10,7 @@
     public interface ICrispyStore
     {
         DbSet<CrispyApplication> Applications { get; set; }
+        DbSet<CrispyVariable> Variables { get; set; }
         DbSet<CrispyEnvironment> Environments { get; set; }
         DbSet<CrispyKeyValuePair> KeyValuePairs { get; set; }
         DbSet<CrispyKeyValuePairHistory> KeyValuePairHistories { get; set; }

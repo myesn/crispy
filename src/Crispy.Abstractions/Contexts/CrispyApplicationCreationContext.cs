@@ -8,7 +8,7 @@
 
     public class CrispyApplicationCreationContext
     {
-        [Required(ErrorMessage = "项目名称为空")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "项目名称为空")]
         [Range(1, ModelRules.NameMaxLength, ErrorMessage = "项目名称长度应为 1 - 50")]
         public string Name { get; set; }
     }

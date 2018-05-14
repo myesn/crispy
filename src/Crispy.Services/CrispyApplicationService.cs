@@ -34,7 +34,7 @@
         public async Task DeleteAsync([NotNull] Guid id)
         {
             var application = await FindAsync(id);
-            if (application == null)
+            if (application == null || application.Deleted)
                 return;
 
             application.Enabler = false;

@@ -22,7 +22,7 @@
             if (await Query().AnyAsync(x => x.EnvironmentId == context.EnvironmentId && x.Key == context.Key))
                 throw new ArgumentException($"{ (context.EnvironmentId == null ? "全局配置" : "当前环境")}已存在 Key 为 {context.Key} 的配置项");
 
-            var pair = new CrispyKeyValuePair()
+            var pair = new CrispyKeyValuePair
             {
                 EnvironmentId = context.EnvironmentId,
                 Key = context.Key,
@@ -41,7 +41,7 @@
         public async Task DeleteAsync([NotNull] Guid id)
         {
             var pair = await FindAsync(id);
-            if (pair == null)
+            if (pair == null || pair.Deleted)
                 return;
 
             pair.Enabler = false;
@@ -64,7 +64,7 @@
             await SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<CrispyKeyValuePairResponse>> GetAllAsync([NotNull] Guid? environmentId) =>
+        public async Task<IEnumerable<CrispyKeyValuePairResponse>> GetAllAsync(Guid? environmentId) =>
              await Query()
                 .Where(x => x.EnvironmentId == environmentId)
                 .Select(x => new CrispyKeyValuePairResponse
@@ -74,7 +74,7 @@
                     Value = x.Value,
                     ValueType = x.ValueType,
                     Description = x.Description,
-                    Enabled = x.Enabler,
+                    Enabler = x.Enabler,
                     Timestamp = x.Timestamp
                 }).ToListAsync() ?? new List<CrispyKeyValuePairResponse>();
 

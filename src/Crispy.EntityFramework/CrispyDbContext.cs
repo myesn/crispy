@@ -1,4 +1,4 @@
-﻿    namespace Crispy.EntityFramework
+﻿namespace Crispy.EntityFramework
 {
     using Crispy.Abstractions;
     using Microsoft.EntityFrameworkCore;
@@ -19,6 +19,7 @@
         { }
 
         public DbSet<CrispyApplication> Applications { get; set; }
+        public DbSet<CrispyVariable> Variables { get; set; }
         public DbSet<CrispyEnvironment> Environments { get; set; }
         public DbSet<CrispyKeyValuePair> KeyValuePairs { get; set; }
         public DbSet<CrispyKeyValuePairHistory> KeyValuePairHistories { get; set; }
@@ -33,7 +34,17 @@
                 application.Property(x => x.Name).HasMaxLength(ModelRules.Application.NameMaxLength).IsRequired();
 
                 application.HasMany(x => x.Enviroments).WithOne(x => x.Application).HasForeignKey(x => x.ApplicatoinId).OnDelete(DeleteBehavior.SetNull).IsRequired();
+                application.HasMany(x => x.Variables).WithOne(x => x.Application).HasForeignKey(x => x.ApplicationId).OnDelete(DeleteBehavior.SetNull).IsRequired(false);
             });
+
+            modelBuilder.Entity<CrispyVariable>(variable =>
+            {
+                variable.HasKey(x => x.Id);
+
+                variable.Property(x => x.Id).ValueGeneratedOnAdd().IsRequired();
+                variable.Property(x => x.Key).HasMaxLength(ModelRules.Variable.KeyMaxLength).IsRequired();
+                variable.Property(x => x.Value).HasMaxLength(ModelRules.Variable.ValueMaxLength).IsRequired();
+            });            
 
             modelBuilder.Entity<CrispyEnvironment>(environment =>
             {

@@ -20,6 +20,7 @@
         public bool Deleted { get; set; }
 
         public virtual ICollection<CrispyEnvironment> Enviroments { get; set; } = new List<CrispyEnvironment>();
+        public virtual ICollection<CrispyVariable> Variables { get; set; } = new List<CrispyVariable>();
 
     }
 }

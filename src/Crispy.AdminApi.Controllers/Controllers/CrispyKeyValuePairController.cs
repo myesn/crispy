@@ -18,7 +18,7 @@
         protected ICrispyKeyValuePairService KeyValuePairService { get; }
 
         [HttpGet("{enviromentId}")]
-        public async Task<IActionResult> GetInfoAsync([NotNull, FromRoute]Guid enviromentId) =>
+        public async Task<IActionResult> GetAllAsync([FromRoute]Guid? enviromentId) =>
             Ok(await KeyValuePairService.GetAllAsync(enviromentId));
 
         [HttpGet("{id}/histories")]
@@ -42,7 +42,7 @@
         }
 
         [HttpPatch("{id}/enabler/{enabler}")]
-        public async Task<IActionResult> EnableAsync([NotNull, FromRoute]Guid id, [NotNull, FromRoute]bool enabler)
+        public async Task<IActionResult> EnableAsync([NotNull, FromRoute]Guid id, [FromRoute]bool enabler)
         {
             await KeyValuePairService.EnableAsync(id, enabler);
 
