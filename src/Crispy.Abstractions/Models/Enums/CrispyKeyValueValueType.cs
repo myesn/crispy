@@ -6,10 +6,11 @@
 
     public enum CrispyKeyValueValueType
     {
-        Number,
-        String,
-        StringArray,
-        Json,
-        Boolean
+        String//,
+        //Number,
+        //Boolean,
+        //StringArray,
+        //Json,
+        //ComplexString
     }
 }

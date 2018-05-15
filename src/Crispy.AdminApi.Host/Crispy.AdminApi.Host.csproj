@@ -2,10 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <LangVersion>7.3</LangVersion>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,7 +16,14 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Crispy.AdminApi.Controllers\Crispy.AdminApi.Controllers.csproj" />
-    <ProjectReference Include="..\Crispy.EntityFramework.MySQL\Crispy.EntityFramework.MySQL.csproj" />
+    <ProjectReference Include="..\Crispy.EntityFramework\Crispy.EntityFramework.csproj" />
+    <ProjectReference Include="..\Crispy.Services\Crispy.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

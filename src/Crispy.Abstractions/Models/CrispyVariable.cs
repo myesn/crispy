@@ -14,8 +14,8 @@ namespace Crispy.Abstractions
         
         public string Key { get; set; }
         public string Value { get; set; }
-        public bool Deleted { get; set; }
-        public bool Enabler { get; set; }
+        public bool Deleted { get; set; } = false;
+        public bool Enabler { get; set; } = true;
         public Guid? ApplicationId { get; set; }
 
         public virtual CrispyApplication Application { get; set; }

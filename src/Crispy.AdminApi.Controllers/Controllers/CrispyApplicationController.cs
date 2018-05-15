@@ -50,7 +50,7 @@
         }
 
         [HttpPatch("{id}/encryption/{encryption}")]
-        public async Task<IActionResult> EncryptAsync([NotNull,FromRoute]Guid id, [FromRoute]bool encryption)
+        public async Task<IActionResult> EncryptAsync([NotNull, FromRoute]Guid id, [FromRoute]bool encryption)
         {
             await ApplicationService.EncryptAsync(id, encryption);
 

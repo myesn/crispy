@@ -1,4 +1,4 @@
-namespace Crispy.AdminApi.Controllers.Controllers
+namespace Crispy.AdminApi.Controllers
 {
     using Crispy.Abstractions;
     using JetBrains.Annotations;

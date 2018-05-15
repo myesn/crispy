@@ -17,10 +17,10 @@
 
         public string Name { get; set; }
         public CrispyEnviromentType Type { get; set; }
-        public bool IncludeGlobalConfig { get; set; }
-        public bool Encryption { get; set; }
-        public bool Enabler { get; set; }
-        public bool Deleted { get; set; }
+        public bool IncludeGlobalConfig { get; set; } = false;
+        public bool Encryption { get; set; } = false;
+        public bool Enabler { get; set; } = true;
+        public bool Deleted { get; set; } = false;
         public Guid ApplicatoinId { get; set; }
 
         public virtual CrispyApplication Application { get; set; }

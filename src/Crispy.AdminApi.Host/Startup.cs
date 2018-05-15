@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -21,12 +22,20 @@ namespace Crispy.AdminApi.Host
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvcCore()
+            services.Configure<AdminApiOptions>(Configuration.GetSection(nameof(AdminApiOptions)));
+
+            services
+                .AddMvcCore(options =>
+                {
+                    options.Filters.Add<ModelStateFilter>();
+                    options.Filters.Add<AutomaticExceptionFilter>();
+                })
                 .AddJsonOptions(options =>
                 {
                     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
                 })
                 .AddJsonFormatters()
+                .AddDataAnnotations()
                 .AddApiExplorer()
                 .AddCors(options =>
                 {
@@ -37,12 +46,14 @@ namespace Crispy.AdminApi.Host
                         .AllowCredentials()
                         .AllowAnyMethod();
                     });
-                }); ;
+                });
 
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
             var migrationAssemblyName = typeof(Startup).Namespace;
 
-            services.AddCrispyEntityFrameworkMySQL(connectionString, migrationAssemblyName);
+            services
+                .AddCrispyEntityFrameworkSqlServer(connectionString, migrationAssemblyName)
+                .AddCrispyServices();
 
             services.AddSwaggerGen(options =>
             {
@@ -61,7 +72,7 @@ namespace Crispy.AdminApi.Host
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseCors("allowany");
+            app.UseCors("allowany");            
 
             app.UseSwagger();
 
@@ -70,7 +81,8 @@ namespace Crispy.AdminApi.Host
                 options.SwaggerEndpoint("/swagger/v1/swagger.json", "crispy admin api");
             });
 
-            app.UseMvc();
+            app.UseMvcWithDefaultRoute();
+
         }
     }
 }

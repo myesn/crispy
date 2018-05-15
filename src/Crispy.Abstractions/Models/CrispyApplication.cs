@@ -14,10 +14,10 @@
         }
 
         public string Name { get; set; }
-        public bool IncludeGlobalConfig { get; set; }
-        public bool Encryption { get; set; }
-        public bool Enabler { get; set; }
-        public bool Deleted { get; set; }
+        public bool IncludeGlobalConfig { get; set; } = false;
+        public bool Encryption { get; set; } = false;
+        public bool Enabler { get; set; } = true;
+        public bool Deleted { get; set; } = false;
 
         public virtual ICollection<CrispyEnvironment> Enviroments { get; set; } = new List<CrispyEnvironment>();
         public virtual ICollection<CrispyVariable> Variables { get; set; } = new List<CrispyVariable>();

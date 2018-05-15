@@ -11,8 +11,8 @@
         public string Description { get; set; }
         public CrispyKeyValueValueType ValueType { get; set; }
         public CrispyKeyValuePairApplyType ApplyType { get; set; }
-        public bool Deleted { get; set; }
-        public bool Enabler { get; set; }
+        public bool Deleted { get; set; } = false;
+        public bool Enabler { get; set; } = true;
         public byte[] Timestamp { get; set; }
         public Guid? EnvironmentId { get; set; }
 

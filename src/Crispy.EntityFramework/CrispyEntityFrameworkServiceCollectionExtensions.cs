@@ -15,5 +15,24 @@
                 .AddDbContextPool<CrispyDbContext>(builder =>
                     builder.UseInMemoryDatabase(databaseName: "cripsy_memory_database"))
                 .AddScoped<ICrispyStore, CrispyDbContext>();
+
+        public static IServiceCollection AddCrispyEntityFrameworkMySQL(
+            this IServiceCollection services,
+            [NotNull]string connectionString,
+            [NotNull]string migrationAssemblyName) =>
+            services.AddDbContextPool<CrispyDbContext>(builder =>
+                builder.UseMySql(connectionString, options =>
+                    options.MigrationsAssembly(migrationAssemblyName)))
+           .AddScoped<ICrispyStore, CrispyDbContext>();
+
+        public static IServiceCollection AddCrispyEntityFrameworkSqlServer(
+            this IServiceCollection services,
+            [NotNull]string connectionString,
+            [NotNull]string migrationAssemblyName) =>
+            services.AddDbContextPool<CrispyDbContext>(builder =>
+                builder.UseSqlServer(connectionString, options =>
+                    options.MigrationsAssembly(migrationAssemblyName)))
+           .AddScoped<ICrispyStore, CrispyDbContext>();
+
     }
 }

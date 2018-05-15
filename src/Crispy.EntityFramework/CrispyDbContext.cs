@@ -26,14 +26,16 @@
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ConfigureTableName();
+
             modelBuilder.Entity<CrispyApplication>(application =>
-            {
+            {                
                 application.HasKey(x => x.Id);
 
                 application.Property(x => x.Id).ValueGeneratedOnAdd().IsRequired();
                 application.Property(x => x.Name).HasMaxLength(ModelRules.Application.NameMaxLength).IsRequired();
 
-                application.HasMany(x => x.Enviroments).WithOne(x => x.Application).HasForeignKey(x => x.ApplicatoinId).OnDelete(DeleteBehavior.SetNull).IsRequired();
+                application.HasMany(x => x.Enviroments).WithOne(x => x.Application).HasForeignKey(x => x.ApplicatoinId).OnDelete(DeleteBehavior.Restrict).IsRequired();
                 application.HasMany(x => x.Variables).WithOne(x => x.Application).HasForeignKey(x => x.ApplicationId).OnDelete(DeleteBehavior.SetNull).IsRequired(false);
             });
 
@@ -68,7 +70,7 @@
                 //pair.Property(x => x.ValueType).HasConversion<string>();
 
                 pair.HasOne(x => x.Environment).WithMany(x => x.KeyValuePairs).HasForeignKey(x => x.EnvironmentId).OnDelete(DeleteBehavior.SetNull).IsRequired(false);
-                pair.HasMany(x => x.Histories).WithOne(x => x.KeyValuePair).HasForeignKey(x => x.KeyValuePairId).OnDelete(DeleteBehavior.SetNull).IsRequired();
+                pair.HasMany(x => x.Histories).WithOne(x => x.KeyValuePair).HasForeignKey(x => x.KeyValuePairId).OnDelete(DeleteBehavior.Restrict).IsRequired();
             });
 
             modelBuilder.Entity<CrispyKeyValuePairHistory>(pairHistory =>
