@@ -19,7 +19,7 @@
             if (exception is UnauthorizedAccessException)
                 code = (int)HttpStatusCode.Unauthorized;
 
-            context.Result = new JsonResult(new { exception.Message /*, exception.StackTrace */ });
+            context.Result = new JsonResult(new { exception.Message/*, exception.StackTrace*/ });
             context.HttpContext.Response.StatusCode = code;
 
             return Task.CompletedTask;

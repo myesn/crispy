@@ -10,8 +10,11 @@
     {
         [Required(ErrorMessage = "环境 Id 为空")]
         public Guid Id { get; set; }
+
         [Required(AllowEmptyStrings = false, ErrorMessage = "环境名称为空")]
-        [Range(1, ModelRules.NameMaxLength, ErrorMessage = "环境名称长度应为  1 - 50")]
+        //[Range(1, ModelRules.NameMaxLength, ErrorMessage = "环境名称长度应为  1 - 50")]
+        [MinLength(1, ErrorMessage = "环境名称长度应大于 1 ")]
+        [MaxLength(ModelRules.NameMaxLength, ErrorMessage = "环境名称长度应小于等于 50")]
         public string Name { get; set; }
     }
 }

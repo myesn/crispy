@@ -52,7 +52,7 @@ namespace Crispy.AdminApi.Host
             var migrationAssemblyName = typeof(Startup).Namespace;
 
             services
-                .AddCrispyEntityFrameworkSqlServer(connectionString, migrationAssemblyName)
+                .AddCrispyEntityFrameworkAuto(connectionString, migrationAssemblyName)
                 .AddCrispyServices();
 
             services.AddSwaggerGen(options =>

@@ -10,29 +10,37 @@
 
     public static class CrispyEntityFrameworkServiceCollectionExtensions
     {
-        public static IServiceCollection AddCrispyEntityFrameworkInMemory(this IServiceCollection services) =>
+        public static IServiceCollection AddCrispyEntityFrameworkAuto(
+            this IServiceCollection services,
+            [NotNull]string connectionString,
+            [NotNull]string migrationAssemblyName)
+        {
+            var connInfo = connectionString.Split(':');
             services
                 .AddDbContextPool<CrispyDbContext>(builder =>
-                    builder.UseInMemoryDatabase(databaseName: "cripsy_memory_database"))
+                    {
+                        var providerType = connInfo[0];
+                        var conn = connInfo[1];
+
+                        if (connInfo[0] == "mysql")
+                        {
+                            builder.UseMySql(conn, options =>
+                                options.MigrationsAssembly(migrationAssemblyName));
+                        }
+                        else if (connInfo[0] == "mssql")
+                        {
+                            builder.UseSqlServer(conn, options => 
+                                options.MigrationsAssembly(migrationAssemblyName));
+                        }
+                        else
+                        {
+                            builder.UseInMemoryDatabase(databaseName: "cripsy_memory_database");
+                        }
+                    })
                 .AddScoped<ICrispyStore, CrispyDbContext>();
 
-        public static IServiceCollection AddCrispyEntityFrameworkMySQL(
-            this IServiceCollection services,
-            [NotNull]string connectionString,
-            [NotNull]string migrationAssemblyName) =>
-            services.AddDbContextPool<CrispyDbContext>(builder =>
-                builder.UseMySql(connectionString, options =>
-                    options.MigrationsAssembly(migrationAssemblyName)))
-           .AddScoped<ICrispyStore, CrispyDbContext>();
-
-        public static IServiceCollection AddCrispyEntityFrameworkSqlServer(
-            this IServiceCollection services,
-            [NotNull]string connectionString,
-            [NotNull]string migrationAssemblyName) =>
-            services.AddDbContextPool<CrispyDbContext>(builder =>
-                builder.UseSqlServer(connectionString, options =>
-                    options.MigrationsAssembly(migrationAssemblyName)))
-           .AddScoped<ICrispyStore, CrispyDbContext>();
+            return services;
+        }
 
     }
 }
