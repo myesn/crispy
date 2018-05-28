@@ -1,2 +1,2 @@
-# cripsy
+# crispy
 Configuration Center for Microservices.
