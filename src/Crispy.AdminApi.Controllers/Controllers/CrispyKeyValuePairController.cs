@@ -9,7 +9,8 @@
     using System.Threading.Tasks;
 
     [Route("keyvaluepair")]
-    public class CrispyKeyValuePairController : Controller
+    [ApiController]
+    public class CrispyKeyValuePairController : ControllerBase
     {
         public CrispyKeyValuePairController(ICrispyKeyValuePairService keyValuePairService)
         {

@@ -9,7 +9,8 @@
     using System.Threading.Tasks;
 
     [Route("environment")]
-    public class CrispyEnvironmentController : Controller
+    [ApiController]
+    public class CrispyEnvironmentController : ControllerBase
     {
         public CrispyEnvironmentController(ICrispyEnviromentService enviromentService)
         {

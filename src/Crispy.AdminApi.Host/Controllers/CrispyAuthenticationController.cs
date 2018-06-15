@@ -8,7 +8,8 @@
     using System.Text;
 
     [Route("authentication")]
-    public class CrispyAuthenticationController : Controller
+    [ApiController]
+    public class CrispyAuthenticationController : ControllerBase
     {
         public CrispyAuthenticationController(IOptionsSnapshot<AdminApiOptions> options)
         {

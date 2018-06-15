@@ -9,7 +9,8 @@ namespace Crispy.AdminApi.Controllers
     using System.Threading.Tasks;
 
     [Route("variable")]
-    public class CrispyVariableController : Controller
+    [ApiController]
+    public class CrispyVariableController : ControllerBase
     {
         public CrispyVariableController(ICrispyVariableService variableService)
         {

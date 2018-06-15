@@ -9,7 +9,8 @@
     using System.Threading.Tasks;
 
     [Route("application")]
-    public class CrispyApplicationController : Controller
+    [ApiController]
+    public class CrispyApplicationController : ControllerBase
     {
         public CrispyApplicationController(ICrispyApplicationService applicationService)
         {
