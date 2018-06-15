@@ -72,7 +72,7 @@ namespace Crispy.Services
         public async Task DeleteAsync([NotNull]Guid id)
         {
             var variable = await FindAsync(id);
-            if (variable == null || variable.Deleted)
+            if (variable == null)
                 return;
 
             variable.Enabler = false;

@@ -41,7 +41,7 @@
         public async Task DeleteAsync([NotNull] Guid id)
         {
             var pair = await FindAsync(id);
-            if (pair == null || pair.Deleted)
+            if (pair == null)
                 return;
 
             pair.Enabler = false;
@@ -82,15 +82,16 @@
         public async Task<IEnumerable<CrispyKeyValuePairHistoryResponse>> GetHistoiesAsync([NotNull] Guid id) =>
              await Store.KeyValuePairHistories
                 .Where(x => x.KeyValuePairId == id)
-                .Select(x => new CrispyKeyValuePairHistoryResponse
-                {
-                    Value = x.Value,
-                    ValueType = x.ValueType,
-                }).ToListAsync() ?? new List<CrispyKeyValuePairHistoryResponse>();
+                .OrderByDescending(x => x.DateTimeCreated)
+                .Select(x => new CrispyKeyValuePairHistoryResponse(x.Value, x.ValueType, x.DateTimeCreated))
+                .ToListAsync() ?? new List<CrispyKeyValuePairHistoryResponse>();
 
         public async Task<CrispyKeyValuePair> UpdateAsync([NotNull] CrispyKeyValuePairUpdateContext context)
         {
             var pair = await FindAndValidAsync(context.Id);
+
+            if (pair.Value != context.Value || pair.ValueType != context.ValueType)
+                Store.KeyValuePairHistories.Add(new CrispyKeyValuePairHistory(pair.Id, context.Value, context.ValueType));
 
             if (pair.Value != context.Value)
                 pair.Value = context.Value;
@@ -102,9 +103,6 @@
                 pair.Description = context.Description;
 
             Store.KeyValuePairs.Update(pair);
-
-            if (pair.Value != context.Value || pair.ValueType != context.ValueType)
-                Store.KeyValuePairHistories.Add(new CrispyKeyValuePairHistory(pair.Id, pair.Value, pair.ValueType));
 
             await SaveChangesAsync();
 

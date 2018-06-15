@@ -21,6 +21,6 @@
         public bool IncludeGlobalConfig { get; set; }
         public bool Encryption { get; set; }
         public bool Enabler { get; set; }
-        public IEnumerable<Tuple<Guid, string>> Environments { get; set; }
+        public IEnumerable<ValueTuple<Guid, string>> Environments { get; set; } = new List<ValueTuple<Guid, string>>();
     }
 }

@@ -20,7 +20,7 @@
         public async Task<CrispyApplication> CreateAsync([NotNull] CrispyApplicationCreationContext context)
         {
             if (await Query().AnyAsync(x => x.Name == context.Name))
-                throw new ArgumentException($"应用名 {context.Name} 已存在");
+                throw new ArgumentException($"应用 {context.Name} 已存在");
 
             var application = new CrispyApplication(context.Name);
             Store.Applications.Add(application);
@@ -34,7 +34,7 @@
         public async Task DeleteAsync([NotNull] Guid id)
         {
             var application = await FindAsync(id);
-            if (application == null || application.Deleted)
+            if (application == null)
                 return;
 
             application.Enabler = false;
@@ -74,11 +74,11 @@
         {
             var application = await FindAndValidAsync(id);
             var response = new CrispyApplicationInfoResponse(application);
-            var environments = await Store.Environments.Where(x => x.ApplicatoinId == id).Select(x => new { x.Id, x.Name }).ToListAsync();
+            var environments = await Store.Environments.Where(x => x.ApplicatoinId == id && !x.Deleted).Select(x => new { x.Id, x.Name }).ToListAsync();
             if (environments == null || !environments.Any())
                 return response;
 
-            response.Environments = environments.Select(x => new Tuple<Guid, string>(x.Id, x.Name));
+            response.Environments = environments.Select(x => (id: x.Id, name: x.Name));
 
             return response;
         }
@@ -117,6 +117,9 @@
 
         public async Task<CrispyApplication> UpdateAsync([NotNull] CrispyApplicationUpdateContext context)
         {
+            if (await Query().AnyAsync(x => x.Id != context.Id && x.Name == context.Name))
+                throw new InvalidOperationException($"应用 {context.Name} 已存在");
+
             var application = await FindAndValidAsync(context.Id);
 
             if (application.Name == context.Name)

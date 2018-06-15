@@ -20,7 +20,7 @@
         public async Task<CrispyEnvironment> AddAsync([NotNull] CrispyEnvironmentAddtionContext context)
         {
             if (await Query().AnyAsync(x => x.ApplicatoinId == context.ApplicationId && x.Name == context.Name))
-                throw new ArgumentException($"应用环境名称 {context.Name} 已存在");
+                throw new ArgumentException($"环境 {context.Name} 已存在");
 
             var environment = new CrispyEnvironment(context.ApplicationId, context.Name, CrispyEnviromentType.Extension);
             Store.Environments.Add(environment);
@@ -33,7 +33,7 @@
         public async Task DeleteAsync([NotNull] Guid id)
         {
             var environment = await FindAsync(id);
-            if (environment == null || environment.Deleted)
+            if (environment == null)
                 return;
 
             environment.Enabler = false;
@@ -74,6 +74,21 @@
             var environment = await FindAndValidAsync(id);
 
             var response = new CrispyEnvironmentInfoResponse(environment);
+            var keyValuePairs = await Store.KeyValuePairs.Where(x => x.EnvironmentId == id && !x.Deleted)
+                .Select(x => new CrispyKeyValuePairResponse
+                {
+                    Id = x.Id,
+                    Key = x.Key,
+                    Value = x.Value,
+                    Description = x.Description,
+                    ValueType = x.ValueType,
+                    Enabler = x.Enabler,
+                    Timestamp = x.Timestamp
+                }).ToListAsync();
+            if (keyValuePairs == null || !keyValuePairs.Any())
+                return response;
+
+            response.KeyValuePairs = keyValuePairs;
 
             return response;
         }
@@ -94,6 +109,10 @@
         public async Task<CrispyEnvironment> UpdateAsync([NotNull] CrispyEnvironmentUpdateContext context)
         {
             var environment = await FindAndValidAsync(context.Id);
+
+            if (await Query().AnyAsync(x => x.ApplicatoinId == environment.ApplicatoinId &&
+                x.Id != context.Id && x.Name == context.Name))
+                throw new InvalidOperationException($"环境 {context.Name} 已存在");
 
             if (environment.Name == context.Name)
                 return environment; ;
@@ -116,7 +135,7 @@
         {
             var environment = await FindAsync(id);
 
-            return environment ?? throw new KeyNotFoundException($"未找到 Id 为 {id} 的应用环境");
+            return environment ?? throw new KeyNotFoundException($"未找到 Id 为 {id} 的环境");
         }
 
         private async Task<int> SaveChangesAsync() =>

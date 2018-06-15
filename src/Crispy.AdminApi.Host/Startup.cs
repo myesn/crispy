@@ -58,7 +58,7 @@ namespace Crispy.AdminApi.Host
 
             services.AddSwaggerGen(options =>
             {
-                options.SwaggerDoc("v1", new Info { Title = "crispy admin api", Version = "V1" });
+                options.SwaggerDoc("v1", new Info { Title = "crispy admin api", Version = "v1" });
             });
         }
 
@@ -84,6 +84,7 @@ namespace Crispy.AdminApi.Host
 
             app.UseSwaggerUI(options =>
             {
+                options.DocExpansion("none");
                 options.SwaggerEndpoint("/swagger/v1/swagger.json", "crispy admin api");
             });
 

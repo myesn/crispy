@@ -6,7 +6,7 @@
 
     public class CrispyEnvironmentInfoResponse
     {
-        public CrispyEnvironmentInfoResponse(){}
+        public CrispyEnvironmentInfoResponse() { }
         public CrispyEnvironmentInfoResponse(CrispyEnvironment environment)
         {
             this.Id = environment.Id;
@@ -21,5 +21,6 @@
         public bool IncludeGlobalConfig { get; set; }
         public bool Encryption { get; set; }
         public bool Enabler { get; set; }
+        public IEnumerable<CrispyKeyValuePairResponse> KeyValuePairs { get; set; } = new List<CrispyKeyValuePairResponse>();
     }
 }
