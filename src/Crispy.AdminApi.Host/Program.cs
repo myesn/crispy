@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 namespace Crispy.AdminApi.Host
@@ -14,12 +15,14 @@ namespace Crispy.AdminApi.Host
     {
         public static async Task Main(string[] args)
         {
-            await BuildWebHost(args).RunAsync();
+            await CreateHostBuilder(args).Build().RunAsync();
         }
 
-        public static IWebHost BuildWebHost(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>()
-                .Build();
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder=> 
+                {
+                    webBuilder.UseStartup<Startup>();
+                });
     }
 }
